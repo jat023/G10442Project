@@ -15,4 +15,4 @@ done
 mv apkname.txt xml
 
 ./FindBugs.sh
-./DPCheck.sh
+#./DPCheck.sh

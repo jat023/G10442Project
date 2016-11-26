@@ -1,22 +1,24 @@
 # Assume that the apk will be copied into dex2jar before running this script
 cd dex2jar-2.0
 
+
+#chmod -x d2j_invoke.sh
+chmod u+x d2j-dex2jar.sh
+
 for f in *.apk; do
-./d2j-dex2jar.sh "$f"
+sh d2j-dex2jar.sh "$f"
 rm "$f"
 done
 
 for f in *.jar; do
-mv "$f" ../findbugs
+mv "$f" ../findbugs-3.0.1
 done
 
 cd ../findbugs-3.0.1
 
 for f in *dex2jar.jar; do
-java -jar bin/findbugs.jar -textui -xml:withMessages -output .xml> FBReport​ "$f"
-rm "$f"
+java -jar lib/findbugs.jar -textui -xml:withMessages -output FBReport​.xml "$f"
+#rm "$f"
 done
 
-for f in *.xml; do
-mv "$f" ../xml
-done
+mv FBReport.xml ../xml
