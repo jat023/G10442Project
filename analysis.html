@@ -12,11 +12,11 @@
 	</head>
 	<body>
 		<div class="container">
-			<div id="app-info"></div>
-			<div class="security-holder btn btn-info" data-toggle='collapse' data-target='#security-issues'>Show Security Issues</div>
-			<div class="dependency-holder btn btn-info" data-toggle='collapse' data-target='#dependency-issues'>Show Dependancy Issues</div>
-			<div class="collapse" id="security-issues">Security.</div>
-			<div class="collapse" id="dependency-issues">Dependancy.</div>
+			<div id="app-info" style="font-size:x-large"></div>
+			<div class="security-holder btn btn-info" data-toggle='collapse' data-target='.security-issues' href="#security-issues">Show/Hide Security Issues</div>
+			<div class="dependency-holder btn btn-info" data-toggle='collapse' data-target='.dependency-issues' href="#dependency-issues">Show/Hide Dependancy Issues</div>
+			<div class="security-issues collapse" style="font-size:x-large">Security Issues</div><div class="collapse security-issues" id="security-issues">Security.</div>
+			<div class="dependency-issues collapse" style="font-size:x-large">Dependancy Issues</div><div class="collapse dependency-issues" id="dependency-issues">Dependancy.</div>
 			</div>
 		</div>
 	</body>

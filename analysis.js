@@ -67,9 +67,9 @@ function showfindSecBugsXML(xml){
 						var severity = Math.floor(rank/5);
 
 						if ($('.'+bugClassName).length == 0){
-							$("#security-issues").append("<div style='border-radius: 5px; padding: 3px; margin: 3px;' class='" + bugClassName + "'><span style='cursor:pointer;'  data-toggle='collapse' data-target='." + bugClassName +"-info'> <span class='bold'>Class:</span> " + bugClassGivenName + "</span></div>");
+							$("#security-issues").append("<div style='border-radius: 5px; border: 1px solid black; padding: 5px; margin: 3px;' class='" + bugClassName + "'><div style='cursor:pointer; font-size:larger;'  data-toggle='collapse' data-target='." + bugClassName +"-info'> <span class='bold'>Class:</span> " + bugClassGivenName + "</br> <span id='"+bugClassName +"MostSevere' class='MostSevereBugClass'></span></div></div>");
 						}
-						$('.'+bugClassName).append("<div id='" + bugClassName + "' style='cursor:default;padding: 3px; border-radius: 5px;margin: 3px;' data-rank=" + rank + " class='" + bugClassName + "Bug-" + hash +  " " + bugClassName +"-info collapse'><span style='cursor:pointer;' data-toggle='collapse' data-target='." + bugClassName +"Bug-" + hash + "-info'><span class='bold'>Bug: </span>" + check.textContent +"</span></br><div class='" + bugClassName + "Bug-" + hash + "-info collapse'><span class='bold'>Type: </span>" + type + "</br><span class='bold'>Severity:</span> <span class='severity'>" + severity + "</span></div></div>");
+						$('.'+bugClassName).append("<div id='" + bugClassName + "' style='cursor:default;padding: 3px; border-radius: 5px;margin: 3px;border: 1px solid black;' data-rank=" + rank + " class='" + bugClassName + "Bug-" + hash +  " " + bugClassName +"-info collapse'><div style='cursor:pointer;' data-toggle='collapse' data-target='." + bugClassName +"Bug-" + hash + "-info'><span class='bold'>Bug: </span>" + check.textContent +"</div><div class='" + bugClassName + "Bug-" + hash + "-info collapse'><span class='bold'>Type: </span>" + type + "</br><span class='bold'>Severity:</span> <span class='severity'>" + severity + "</span></div></div>");
 
 					}
 					
@@ -83,6 +83,13 @@ function showfindSecBugsXML(xml){
 						$('.' + bugClassName + "Bug-" + hash + "-info").append("<div><span class='bold'> Field: </span>" + check.textContent + "</div>");
 					}					
 				}
+				var minimum = 20;
+				$('.'+bugClassName + "-info").each(function() {
+				  var value = parseFloat($(this).attr('data-rank'));
+				  console.log(value);
+				  minimum = (value < minimum) ? value : minimum;
+				});
+				$('#'+bugClassName + "MostSevere").text(minimum);
 			}
 
 		}
@@ -92,7 +99,7 @@ function showfindSecBugsXML(xml){
 		var severityNumber = $(this).text();
 		if (severityNumber == "0"){
 			$(this).text("Highest");
-			$(this).parent().parent().css('background-color', '#ff1919');
+			$(this).parent().parent().css('background-color', '#ff3232');
 		}
 		if (severityNumber == "1"){
 			$(this).text("High");
@@ -101,15 +108,39 @@ function showfindSecBugsXML(xml){
 		}
 		if (severityNumber == "2"){
 			$(this).text("Medium");
-			$(this).parent().parent().css('background-color', '#ff7f7f');
+			$(this).parent().parent().css('background-color', '#ff6666');
 
 		}
 		if (severityNumber == "3" || severityNumber == "4"){
 			$(this).text("Low");
-			$(this).parent().parent().css('background-color', '#ffb2b2');
+			$(this).parent().parent().css('background-color', '#ff7f7f');
 
 		}
 	});
+	
+	$('.MostSevereBugClass').each(function(){
+		var severityNumber = Math.floor(parseInt($(this).text())/5);
+		if (severityNumber == 0){
+			$(this).text("Highest bug severity rating: Highest");
+			$(this).parent().parent().css('background-color', '#ff9932');
+		}
+		if (severityNumber == 1){
+			$(this).text("Highest bug severity rating: High");
+			$(this).parent().parent().css('background-color', '#ffa64c');
+
+		}
+		if (severityNumber == 2){
+			$(this).text("Highest bug severity rating: Medium");
+			$(this).parent().parent().css('background-color', '#ffb366');
+
+		}
+		if (severityNumber == 3 || severityNumber == 4){
+			$(this).text("Highest bug severity rating: Low");
+			$(this).parent().parent().css('background-color', '#ffbf7f');
+
+		}
+	});		
+	
 }
 
 function showDependenciesXML(){
@@ -123,7 +154,7 @@ function showDependenciesXML(){
 		for (var node of childrenNodes){
 			if (node.nodeName == "fileName"){
 				file = node.textContent;
-				$("#dependency-issues").append("<div class='file-name'> Analysis of " + file + "</div>");
+				$("#dependency-issues").append("<div class='file-name'> </div>");
 				//console.log(node.textContent);
 			}
 			if (node.nodeName == "vulnerabilities"){
@@ -142,7 +173,7 @@ function showDependenciesXML(){
 
 							if (attribute.nodeName == "cwe"){
 								//console.log(file);
-								$('.vulnerability-' + vulnerabilityNum).append("<div style='cursor:pointer;' class='vulnerability-name-" + vulnerabilityNum + "'data-toggle='collapse' data-target='#vulnerability-description-"+vulnerabilityNum +"'>" + attribute.textContent + "</div>");
+								$('.vulnerability-' + vulnerabilityNum).append("<div style='cursor:pointer;font-size:larger;' class='vulnerability-name-" + vulnerabilityNum + "'data-toggle='collapse' data-target='#vulnerability-description-"+vulnerabilityNum +"'>" + attribute.textContent + "</div>");
 								if ($('.vulnerability-codename-'+ vulnerabilityNum).length){
 									var vulnerability_codename = $('.vulnerability-codename-'+ vulnerabilityNum).text();
 									//console.log(vulnerability_codename);
@@ -156,12 +187,12 @@ function showDependenciesXML(){
 								$('.vulnerability-' + vulnerabilityNum).append("<span class='vulnerability-severity-" + vulnerabilityNum + "'>" + attribute.textContent + "</span>");
 								//console.log(attribute.textContent);
 								if (attribute.textContent == "Low"){
-									$('.vulnerability-' + vulnerabilityNum).css('background-color', '#ffb2b2');
+									$('.vulnerability-' + vulnerabilityNum).css('background-color', '#ff7f7f');
 									$('.vulnerability-' + vulnerabilityNum).attr("data-severity", 1);
 
 								}
 								if (attribute.textContent == "Medium"){
-									$('.vulnerability-' + vulnerabilityNum).css('background-color', '#ff7f7f');
+									$('.vulnerability-' + vulnerabilityNum).css('background-color', '#ff6666');
 									$('.vulnerability-' + vulnerabilityNum).attr("data-severity", 2);
 
 								}
@@ -171,7 +202,7 @@ function showDependenciesXML(){
 
 								}
 								if (attribute.textContent == "Highest"){
-									$('.vulnerability-' + vulnerabilityNum).css('background-color', '#ff1919');
+									$('.vulnerability-' + vulnerabilityNum).css('background-color', '#ff3232');
 									$('.vulnerability-' + vulnerabilityNum).attr("data-severity", 4);
 
 								}
