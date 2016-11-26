@@ -7,10 +7,10 @@ function loadXML(){
 	xmlhttp.onreadystatechange = function(){
 		if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
 			findSecBugsxml = xmlhttp.responseText; //Can do automatically!
-			//console.log(findSecBugsxml);
+			showfindSecBugsXML(findSecBugsxml);
 		}
 	};
-	xmlhttp.open("GET","xml/testMine.xml",true);
+	xmlhttp.open("GET","xml/officialOutput.xml",true);
 	xmlhttp.send();
 	
 	var xmlhttp2 = new XMLHttpRequest();
@@ -23,9 +23,8 @@ function loadXML(){
 	};
 	xmlhttp2.open("GET","xml/DCreport0001.xml",true);
 	xmlhttp2.send();
-	//var opener = new XMLHttpRequest();
-	//var test2 = opener.open("GET",'xml/testMine.xml',false);
-	//console.log(test2);
+	//Will do it with XML once I get the file
+	$("#app-info").text("Showing Security Issues for APP");
 }
 
 
@@ -33,31 +32,84 @@ function loadXML(){
 function showfindSecBugsXML(xml){
 	var xmlParser = new DOMParser();
 	var xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+	$("#security-issues").empty();
+
 	var bugs = xmlDoc.getElementsByTagName("BugInstance")
 	for (var bug of bugs){
 		//console.log(bugs[x]);//.getAttribute("type"));
-		if (bug.getAttribute("type") != "NM_CLASS_NAMING_CONVENTION"){
+		var rank = bug.getAttribute("rank");
+		var type = bug.getAttribute("type");
+
+
+		if (bug.getAttribute("type") != "NM_CLASS_NAMING_CONVENTION" && bug.getAttribute("instanceOccurrenceNum") == 0){
+			var hash = bug.getAttribute("instanceHash");
 			var childrenNodes = bug.childNodes;
+			var bugClassName;
+			var bugClassGivenName;
+
 			//console.log(childrenNodes);
 			var justDoIt = true;
 			for (var check of childrenNodes){
 				if (check.nodeName == "Class"){
+					if (check.getAttribute("primary") == "true"){
+						bugClassGivenName = bugClassName = check.getAttribute("classname");
+						bugClassName = bugClassName.replace(/\./g, "-").replace(/\$/g, '-');
+					}
 					if(check.getAttribute("classname").indexOf("android.") > -1){
 						justDoIt = false;					
 					}
 				}
 			}
 			if (justDoIt){
-				for (var check of childrenNodes){
-					if (check.nodeName == "LongMessage"){
-						console.log(check.textContent);
+				
+				for (var check of childrenNodes){	
+					if (check.nodeName == "ShortMessage"){
+						var severity = Math.floor(rank/5);
+
+						if ($('.'+bugClassName).length == 0){
+							$("#security-issues").append("<div style='border-radius: 5px; padding: 3px; margin: 3px;' class='" + bugClassName + "'><span style='cursor:pointer;'  data-toggle='collapse' data-target='." + bugClassName +"-info'> <span class='bold'>Class:</span> " + bugClassGivenName + "</span></div>");
+						}
+						$('.'+bugClassName).append("<div id='" + bugClassName + "' style='cursor:default;padding: 3px; border-radius: 5px;margin: 3px;' data-rank=" + rank + " class='" + bugClassName + "Bug-" + hash +  " " + bugClassName +"-info collapse'><span style='cursor:pointer;' data-toggle='collapse' data-target='." + bugClassName +"Bug-" + hash + "-info'><span class='bold'>Bug: </span>" + check.textContent +"</span></br><div class='" + bugClassName + "Bug-" + hash + "-info collapse'><span class='bold'>Type: </span>" + type + "</br><span class='bold'>Severity:</span> <span class='severity'>" + severity + "</span></div></div>");
+
 					}
+					
+					if (check.nodeName == "LongMessage"){
+						$('.' + bugClassName + "Bug-" + hash + "-info").append("<div><span class='bold'>Description:</span> " + check.textContent + "</div>");
+					}
+					if (check.nodeName == "Method" && check.getAttribute("primary") == "true"){
+						$('.' + bugClassName + "Bug-" + hash + "-info").append("<div><span class='bold'> Method: </span>" + check.textContent + "</div>");
+					}
+					if (check.nodeName == "Field" && check.getAttribute("primary") == "true"){
+						$('.' + bugClassName + "Bug-" + hash + "-info").append("<div><span class='bold'> Field: </span>" + check.textContent + "</div>");
+					}					
 				}
-			}			
+			}
 
 		}
 		
 	}
+	$('.severity').each(function(){
+		var severityNumber = $(this).text();
+		if (severityNumber == "0"){
+			$(this).text("Highest");
+			$(this).parent().parent().css('background-color', '#ff1919');
+		}
+		if (severityNumber == "1"){
+			$(this).text("High");
+			$(this).parent().parent().css('background-color', '#ff4c4c');
+
+		}
+		if (severityNumber == "2"){
+			$(this).text("Medium");
+			$(this).parent().parent().css('background-color', '#ff7f7f');
+
+		}
+		if (severityNumber == "3" || severityNumber == "4"){
+			$(this).text("Low");
+			$(this).parent().parent().css('background-color', '#ffb2b2');
+
+		}
+	});
 }
 
 function showDependenciesXML(){
@@ -72,28 +124,28 @@ function showDependenciesXML(){
 			if (node.nodeName == "fileName"){
 				file = node.textContent;
 				$("#dependency-issues").append("<div class='file-name'> Analysis of " + file + "</div>");
-				console.log(node.textContent);
+				//console.log(node.textContent);
 			}
 			if (node.nodeName == "vulnerabilities"){
 				var vulnerabilities = node.childNodes;
-				console.log(vulnerabilities);
+				//console.log(vulnerabilities);
 				var vulnerabilityNum = 0;
 				for (var vulnerability of vulnerabilities){
 					var attributes = vulnerability.childNodes;
-					console.log(attributes.length);
+					//console.log(attributes.length);
 					if (attributes.length > 0){
-						$(".file-name").append("<div style='cursor:pointer; border-radius: 5px; padding: 3px; margin: 3px;' class='vulnerability vulnerability-"+ vulnerabilityNum + "' data-toggle='collapse' data-target='#vulnerability-description-"+vulnerabilityNum +"'></div>");
+						$(".file-name").append("<div style='border-radius: 5px; padding: 3px; margin: 3px;' class='vulnerability vulnerability-"+ vulnerabilityNum + "'></div>");
 						for (var attribute of attributes){
 							if (attribute.nodeName == "name"){
 								$('.vulnerability-' + vulnerabilityNum).append("<span class='vulnerability-codename-" + vulnerabilityNum+"'>(" + attribute.textContent + ") </span>");
 							}
 
 							if (attribute.nodeName == "cwe"){
-								console.log(file);
-								$('.vulnerability-' + vulnerabilityNum).append("<div class='vulnerability-name-" + vulnerabilityNum + "'>" + attribute.textContent + "</div>");
+								//console.log(file);
+								$('.vulnerability-' + vulnerabilityNum).append("<div style='cursor:pointer;' class='vulnerability-name-" + vulnerabilityNum + "'data-toggle='collapse' data-target='#vulnerability-description-"+vulnerabilityNum +"'>" + attribute.textContent + "</div>");
 								if ($('.vulnerability-codename-'+ vulnerabilityNum).length){
 									var vulnerability_codename = $('.vulnerability-codename-'+ vulnerabilityNum).text();
-									console.log(vulnerability_codename);
+									//console.log(vulnerability_codename);
 									$('.vulnerability-codename-'+ vulnerabilityNum).remove();
 									$('.vulnerability-name-' + vulnerabilityNum).append(" " + vulnerability_codename);
 									
@@ -145,7 +197,7 @@ function showDependenciesXML(){
 									
 									for (var attr of referenceAttributes){
 										if (attr.nodeName == "url"){
-											$('.vulnerability-references-' + vulnerabilityNum).append("<a href='" + attr.textContent + "'>[" + numReferences + "]</a>");
+											$('.vulnerability-references-' + vulnerabilityNum).append("<a target='_blank' href='" + attr.textContent + "'>[" + numReferences + "]</a>");
 										}
 									}
 									if (referenceAttributes.length > 0 ){
@@ -166,11 +218,9 @@ function showDependenciesXML(){
    var sorted_vulnerabilities = $('.vulnerability').sort(function (a, b) {
       var contentA =parseInt( $(a).attr('data-severity'));
       var contentB =parseInt( $(b).attr('data-severity'));
-	  console.log(contentA);
-	  console.log(contentB);
       return (contentA > contentB) ? -1 : (contentA < contentB) ? 1 : 0;
    });
-  	console.log(sorted_vulnerabilities);
+  	//console.log(sorted_vulnerabilities);
 
    $('#dependency-issues').html(sorted_vulnerabilities);
 				

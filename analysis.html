@@ -1,15 +1,23 @@
 <html>
-<head>
-<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<script src="jquery-3.1.1.min.js"></script>
-<script src="analysis.js"></script>
-<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-</head>
-<body>
-<button type="button" onClick="showfindSecBugsXML()">Find Sec Bugs</button>
-<div class="container">
-<div id="security-issues">Security.</div>
-<div id="dependency-issues">Dependancy.</div>
-</div>
-</body>
+	<head>
+		<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="analysis.js"></script>
+		<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<style>
+			.bold {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="app-info"></div>
+			<div class="security-holder btn btn-info" data-toggle='collapse' data-target='#security-issues'>Show Security Issues</div>
+			<div class="dependency-holder btn btn-info" data-toggle='collapse' data-target='#dependency-issues'>Show Dependancy Issues</div>
+			<div class="collapse" id="security-issues">Security.</div>
+			<div class="collapse" id="dependency-issues">Dependancy.</div>
+			</div>
+		</div>
+	</body>
 </html>
