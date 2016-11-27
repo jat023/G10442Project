@@ -67,7 +67,7 @@ function showfindSecBugsXML(xml){
 						var severity = Math.floor(rank/5);
 
 						if ($('.'+bugClassName).length == 0){
-							$("#security-issues").append("<div style='border-radius: 5px; border: 1px solid black; padding: 5px; margin: 3px;' class='" + bugClassName + "'><div style='cursor:pointer; font-size:larger;'  data-toggle='collapse' data-target='." + bugClassName +"-info'> <span class='bold'>Class:</span> " + bugClassGivenName + "</br> <span id='"+bugClassName +"MostSevere' class='MostSevereBugClass'></span></div></div>");
+							$("#security-issues").append("<div style='border-radius: 5px; border: 1px solid black; padding: 5px; margin: 3px;' class='" + bugClassName + "'><div style='cursor:pointer; font-size:larger;'  data-toggle='collapse' data-target='." + bugClassName +"-info'> <span class='bold'>Class:</span> " + bugClassGivenName + " <span class='badge' id='" + bugClassName + "-numBugs'>1</span></br> <span id='"+bugClassName +"MostSevere' class='MostSevereBugClass'></span></div></div>");
 						}
 						$('.'+bugClassName).append("<div id='" + bugClassName + "' style='cursor:default;padding: 3px; border-radius: 5px;margin: 3px;border: 1px solid black;' data-rank=" + rank + " class='" + bugClassName + "Bug-" + hash +  " " + bugClassName +"-info collapse'><div style='cursor:pointer;' data-toggle='collapse' data-target='." + bugClassName +"Bug-" + hash + "-info'><span class='bold'>Bug: </span>" + check.textContent +"</div><div class='" + bugClassName + "Bug-" + hash + "-info collapse'><span class='bold'>Type: </span>" + type + "</br><span class='bold'>Severity:</span> <span class='severity'>" + severity + "</span></div></div>");
 
@@ -84,12 +84,15 @@ function showfindSecBugsXML(xml){
 					}					
 				}
 				var minimum = 20;
+				var count = 0;
 				$('.'+bugClassName + "-info").each(function() {
 				  var value = parseFloat($(this).attr('data-rank'));
+				  count++;
 				  console.log(value);
 				  minimum = (value < minimum) ? value : minimum;
 				});
 				$('#'+bugClassName + "MostSevere").text(minimum);
+				$('#'+bugClassName + "-numBugs").text(count);
 			}
 
 		}
@@ -255,6 +258,24 @@ function showDependenciesXML(){
 
    $('#dependency-issues').html(sorted_vulnerabilities);
 				
+}
+
+function changeSecText(){
+	if($('.security-holder').text() == "Show Security Issues"){
+		$('.security-holder').text("Hide Security Issues");
+	}
+	else {
+		$('.security-holder').text("Show Security Issues");
+	}
+}
+
+function changeDepText(){
+	if($('.dependency-holder').text() == "Show Dependancy Issues"){
+		$('.dependency-holder').text("Hide Dependancy Issues");
+	}
+	else {
+		$('.dependency-holder').text("Show Dependancy Issues");
+	}
 }
 
 $(document).ready(function(){
