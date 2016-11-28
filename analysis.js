@@ -24,7 +24,7 @@ function loadXML(){
 	xmlhttp2.open("GET","xml/DCreport0001.xml",true);
 	xmlhttp2.send();
 	//Will do it with XML once I get the file
-	$("#app-info").text("Showing Security Issues for APP");
+	$("#app-info").text("Showing Security Issues for Tv Mar");
 }
 
 
