@@ -11,13 +11,13 @@ rm "$f"
 done
 
 for f in *.jar; do
-mv "$f" ../findbugs-3.0.1
+mv "$f"../findbugs-3.0.1
 done
 
 cd ../findbugs-3.0.1
 
 for f in *dex2jar.jar; do
-java -jar lib/findbugs.jar -textui -xml:withMessages -output fbreport​.xml "$f"
+java -jar lib/findbugs.jar -textui -xml:withMessages -output fbreport.xml "$f"
 #rm "$f"
 done
 
