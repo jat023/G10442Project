@@ -12,7 +12,7 @@ function loadXML(){
 			console.log(findSecBugsxml);
 		}
 	};
-	xmlhttp.open("GET","xml/OfficialOutput.xml",true);
+	xmlhttp.open("GET","xml/fbreport.xml",true);
 	xmlhttp.send();
 	
 	var xmlhttp2 = new XMLHttpRequest();
