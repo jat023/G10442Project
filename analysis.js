@@ -1,5 +1,6 @@
 var findSecBugsxml;
 var dependenciesXml;
+var apk_name;
 
 function loadXML(){
 	
@@ -24,7 +25,19 @@ function loadXML(){
 	xmlhttp2.open("GET","xml/DCreport0001.xml",true);
 	xmlhttp2.send();
 	//Will do it with XML once I get the file
-	$("#app-info").text("Showing Security Issues for Tv Mar");
+	
+	var xmlhttp3 = new XMLHttpRequest();
+	xmlhttp3.onreadystatechange = function (){
+		if((xmlhttp3.status == 200 || xmlhttp3.status == 0) && xmlhttp3.readyState == 4){
+			console.log(xmlhttp3.responseText);
+			apk_name = xmlhttp3.responseText;
+			$("#app-info").text("Showing Security Issues for " + apk_name);
+
+		}
+	};
+	xmlhttp3.open("GET","xml/apkname.txt",true);
+	//xmlhttp3.responseType = "text";
+	xmlhttp3.send();
 }
 
 
@@ -88,7 +101,7 @@ function showfindSecBugsXML(xml){
 				$('.'+bugClassName + "-info").each(function() {
 				  var value = parseFloat($(this).attr('data-rank'));
 				  count++;
-				  console.log(value);
+				  //console.log(value);
 				  minimum = (value < minimum) ? value : minimum;
 				});
 				$('#'+bugClassName + "MostSevere").text(minimum);
