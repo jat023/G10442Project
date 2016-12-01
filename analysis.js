@@ -3,15 +3,16 @@ var dependenciesXml;
 var apk_name;
 
 function loadXML(){
-	
+	console.log("Trying to load XML");
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function(){
-		if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
+		if((xmlhttp.status == 200 || xmlhttp.status == 0) && xmlhttp.readyState == 4){
 			findSecBugsxml = xmlhttp.responseText; //Can do automatically!
 			showfindSecBugsXML(findSecBugsxml);
+			console.log(findSecBugsxml);
 		}
 	};
-	xmlhttp.open("GET","xml/officialOutput.xml",true);
+	xmlhttp.open("GET","xml/OfficialOutput.xml",true);
 	xmlhttp.send();
 	
 	var xmlhttp2 = new XMLHttpRequest();
@@ -292,5 +293,6 @@ function changeDepText(){
 }
 
 $(document).ready(function(){
+	console.log("Hi");
 	loadXML();
 });
