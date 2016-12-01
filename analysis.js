@@ -6,7 +6,7 @@ function loadXML(){
 	console.log("Trying to load XML");
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function(){
-		if((xmlhttp.status == 200 && xmlhttp.readyState == 4){
+		if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
 			findSecBugsxml = xmlhttp.responseText; //Can do automatically!
 			showfindSecBugsXML(findSecBugsxml);
 			console.log(findSecBugsxml);
