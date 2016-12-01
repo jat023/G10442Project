@@ -77,35 +77,25 @@
     </scanInfo>
     <projectInfo>
         <name>DCResults</name>
-        <reportDate>2016-11-30T23:25:30.273-0800</reportDate>
+        <reportDate>2016-12-01T00:34:15.271-0800</reportDate>
         <credits>This report contains data retrieved from the National Vulnerability Database: http://nvd.nist.gov</credits>
     </projectInfo>
     <dependencies>
         <dependency>
             <fileName>classes-dex2jar.jar</fileName>
             <filePath>/Users/james/Documents/workspace_iOS/G10442Project/dependency-check/classes-dex2jar.jar</filePath>
-            <md5>2cf6cfcde8b2c27aba788a57ba1a978c</md5>
-            <sha1>1e6648a2b6002f00972bef659758178ea928b3c7</sha1>
+            <md5>4f0bc02a47a9c31d4ee96b74d23a01ce</md5>
+            <sha1>a41fa7240dd7f444e846c8031a5cc1ec18cc01c0</sha1>
             <evidenceCollected>
                 <evidence type="vendor" confidence="HIGH">
                     <source>file</source>
                     <name>name</name>
                     <value>classes-dex2jar</value>
                 </evidence>
-                <evidence type="vendor" confidence="LOW">
-                    <source>jar</source>
-                    <name>package name</name>
-                    <value>android</value>
-                </evidence>
                 <evidence type="product" confidence="HIGH">
                     <source>file</source>
                     <name>name</name>
                     <value>classes-dex2jar</value>
-                </evidence>
-                <evidence type="product" confidence="LOW">
-                    <source>jar</source>
-                    <name>package name</name>
-                    <value>android</value>
                 </evidence>
                 <evidence type="version" confidence="MEDIUM">
                     <source>file</source>

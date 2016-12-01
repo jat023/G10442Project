@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<BugCollection version="3.0.1-dev-20161122-fatal: Not a git repository (or any of the parent directories): .git" sequence="0" timestamp="1480576770000" analysisTimestamp="1480576779561" release="">
+<BugCollection version="3.0.1-dev-20161122-fatal: Not a git repository (or any of the parent directories): .git" sequence="0" timestamp="1480579726000" analysisTimestamp="1480581040595" release="">
   <Project projectName="">
     <Jar>5d7f9d2c5671f270db33824f3d9ccea370cd330f-dex2jar.jar</Jar>
   </Project>
@@ -4360,6 +4360,7 @@
       <SourceLine classname="com.flurry.sdk.kq"/>
       <Message>In method com.flurry.sdk.kq.equals(Object)</Message>
     </Method>
+<<<<<<< HEAD
     <LocalVariable name="?" register="2" pc="25" role="LOCAL_VARIABLE_VALUE_OF">
       <Message>Value loaded from ?</Message>
     </LocalVariable>
@@ -4367,6 +4368,15 @@
       <Message>Dereferenced at &lt;Unknown&gt;</Message>
     </SourceLine>
     <SourceLine classname="com.flurry.sdk.kq" startBytecode="20" endBytecode="20" role="SOURCE_LINE_DEREF">
+=======
+    <LocalVariable name="?" register="2" pc="17" role="LOCAL_VARIABLE_VALUE_OF">
+      <Message>Value loaded from ?</Message>
+    </LocalVariable>
+    <SourceLine classname="com.flurry.sdk.kq" startBytecode="20" endBytecode="20" role="SOURCE_LINE_DEREF">
+      <Message>Dereferenced at &lt;Unknown&gt;</Message>
+    </SourceLine>
+    <SourceLine classname="com.flurry.sdk.kq" startBytecode="26" endBytecode="26" role="SOURCE_LINE_DEREF">
+>>>>>>> acc0261abaa31251f78e76ca974de477903000e5
       <Message>Dereferenced at &lt;Unknown&gt;</Message>
     </SourceLine>
     <SourceLine classname="com.flurry.sdk.kq" startBytecode="1" endBytecode="1" role="SOURCE_LINE_KNOWN_NULL">
@@ -12226,6 +12236,7 @@
       <SourceLine classname="com.libefx.core.TextureEffects"/>
       <Message>In method com.libefx.core.TextureEffects.applyEffect(Bitmap, TextureEffects$TextureEffect, boolean)</Message>
     </Method>
+<<<<<<< HEAD
     <LocalVariable name="?" register="1" pc="137" role="LOCAL_VARIABLE_VALUE_OF">
       <Message>Value loaded from ?</Message>
     </LocalVariable>
@@ -12233,6 +12244,15 @@
       <Message>Dereferenced at &lt;Unknown&gt;</Message>
     </SourceLine>
     <SourceLine classname="com.libefx.core.TextureEffects" startBytecode="22" endBytecode="22" role="SOURCE_LINE_DEREF">
+=======
+    <LocalVariable name="?" register="1" pc="21" role="LOCAL_VARIABLE_VALUE_OF">
+      <Message>Value loaded from ?</Message>
+    </LocalVariable>
+    <SourceLine classname="com.libefx.core.TextureEffects" startBytecode="22" endBytecode="22" role="SOURCE_LINE_DEREF">
+      <Message>Dereferenced at &lt;Unknown&gt;</Message>
+    </SourceLine>
+    <SourceLine classname="com.libefx.core.TextureEffects" startBytecode="138" endBytecode="138" role="SOURCE_LINE_DEREF">
+>>>>>>> acc0261abaa31251f78e76ca974de477903000e5
       <Message>Dereferenced at &lt;Unknown&gt;</Message>
     </SourceLine>
     <SourceLine classname="com.libefx.core.TextureEffects" startBytecode="5" endBytecode="5" role="SOURCE_LINE_KNOWN_NULL">
@@ -25793,7 +25813,11 @@ and <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6178997">Sun Bug
     <MissingClass>org.json.JSONObject</MissingClass>
     <MissingClass>org.json.JSONTokener</MissingClass>
   </Errors>
+<<<<<<< HEAD
   <FindBugsSummary timestamp="Wed, 30 Nov 2016 23:19:30 -0800" total_classes="3091" referenced_classes="3485" total_bugs="1395" total_size="133595" num_packages="81" java_version="1.7.0_79" vm_version="24.79-b02" cpu_seconds="286.96" clock_seconds="304.41" peak_mbytes="436.26" alloc_mbytes="455.00" gc_seconds="34.38" priority_2="1225" priority_1="170">
+=======
+  <FindBugsSummary timestamp="Thu, 1 Dec 2016 00:08:46 -0800" total_classes="3091" referenced_classes="3485" total_bugs="1395" total_size="133595" num_packages="81" java_version="1.7.0_79" vm_version="24.79-b02" cpu_seconds="267.33" clock_seconds="160.61" peak_mbytes="467.44" alloc_mbytes="455.00" gc_seconds="17.93" priority_2="1225" priority_1="170">
+>>>>>>> acc0261abaa31251f78e76ca974de477903000e5
     <FileStats path="android/support/v4/accessibilityservice/&lt;Unknown&gt;" bugCount="0" size="73"/>
     <FileStats path="android/support/v4/app/&lt;Unknown&gt;" bugCount="8" size="4534" bugHash="5e29696638baf2906394a49cdbe0d44e"/>
     <FileStats path="android/support/v4/content/&lt;Unknown&gt;" bugCount="7" size="646" bugHash="52cf15c3b176dffa054071da33c7698c"/>
@@ -29129,6 +29153,7 @@ and <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6178997">Sun Bug
       <ClassStats class="yuku.ambilwarna.R$layout" sourceFile="&lt;Unknown&gt;" interface="false" size="3" bugs="1" priority_2="1"/>
     </PackageStats>
     <FindBugsProfile>
+<<<<<<< HEAD
       <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="25258" invocations="17174" avgMicrosecondsPerInvocation="1470" maxMicrosecondsPerInvocation="2107622" standardDeviationMircosecondsPerInvocation="21512"/>
       <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="19840" invocations="17471" avgMicrosecondsPerInvocation="1135" maxMicrosecondsPerInvocation="1856432" standardDeviationMircosecondsPerInvocation="18276"/>
       <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="16013" invocations="17359" avgMicrosecondsPerInvocation="922" maxMicrosecondsPerInvocation="1305644" standardDeviationMircosecondsPerInvocation="14588"/>
