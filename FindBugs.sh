@@ -21,4 +21,4 @@ java -jar lib/findbugs.jar -textui -xml:withMessages -output fbreport.xml "$f"
 #rm "$f"
 done
 
-mv fbreport​.xml ../xml
+mv fbreport.xml ../xml
