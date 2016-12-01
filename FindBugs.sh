@@ -17,8 +17,8 @@ done
 cd ../findbugs-3.0.1
 
 for f in *dex2jar.jar; do
-java -jar lib/findbugs.jar -textui -xml:withMessages -output FBReport​.xml "$f"
+java -jar lib/findbugs.jar -textui -xml:withMessages -output fbreport​.xml "$f"
 #rm "$f"
 done
 
-mv FBReport.xml ../xml
+mv fbreport​.xml ../xml
