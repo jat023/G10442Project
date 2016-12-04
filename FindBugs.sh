@@ -11,7 +11,7 @@ rm "$f"
 done
 
 for f in *.jar; do
-mv "$f"../findbugs-3.0.1
+mv "$f" ../findbugs-3.0.1
 done
 
 cd ../findbugs-3.0.1
